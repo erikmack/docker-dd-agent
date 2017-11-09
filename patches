@@ -1,5 +1,6 @@
 # List here your PR urls
 # Lines starting with hash are ignored
-#
-https://github.com/DataDog/dd-agent/pull/3571
+#https://github.com/DataDog/dd-agent/pull/3563
+https://github.com/DataDog/dd-agent/commit/494ef06a8a67285ebc0fd6cee40bbfa975071a1d.patch
+#https://github.com/DataDog/dd-agent/pull/3571
 #https://github.com/DataDog/integrations-core/pull/3571

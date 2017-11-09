@@ -9,6 +9,7 @@ log = logging.getLogger("backport.py")
 
 GITHUB_PR_URL_RE = re.compile("github\.com\/DataDog\/(\S+)\/pull\/(\d+)")
 GITHUB_PATH_URL = "https://patch-diff.githubusercontent.com/raw/DataDog/%s/pull/%s.diff"
+GH_PATCH = "https://github.com/DataDog/dd-agent/commit/494ef06a8a67285ebc0fd6cee40bbfa975071a1d.patch"
 
 
 def _pre(pattern):
@@ -80,14 +81,15 @@ def convert_diff(url):
     """
     conv_diffs = 0
     log.debug("Processing %s" % url.strip())
-    match = GITHUB_PR_URL_RE.search(url)
-    if match is None or match.lastindex != 2:
-        raise ValueError("Can't extract PR from URL %s" % url)
-    repo, prID = match.groups()
-    if repo not in CONVERSIONS.keys():
-        raise ValueError("Repository %s unsupported" % repo)
-
-    patch = requests.get(GITHUB_PATH_URL % (repo, prID))
+ #   match = GITHUB_PR_URL_RE.search(url)
+ #   if match is None or match.lastindex != 2:
+ #       raise ValueError("Can't extract PR from URL %s" % url)
+ #   repo, prID = match.groups()
+ #   if repo not in CONVERSIONS.keys():
+ #       raise ValueError("Repository %s unsupported" % repo)
+    repo = 'dd-agent'
+    prID = 3571
+    patch = requests.get(GH_PATCH)
     patch.raise_for_status()
 
     skip = True
@@ -104,7 +106,6 @@ def convert_diff(url):
             print line
         else:
             pass  # Ignore intro / ignored file contents
-
     return conv_diffs
 
 
